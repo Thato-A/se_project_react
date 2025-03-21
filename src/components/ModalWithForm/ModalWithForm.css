@@ -77,10 +77,12 @@
 
 .modal__label_type_radio {
   margin-bottom: 8px;
+  color: rgba(0, 0, 0, 1);
   opacity: 0.5;
 }
 
-.modal__label_type_radio:checked + .modal__radio-input {
+label:has(input:checked) {
+  color: rgba(0, 0, 0, 1);
   opacity: 1;
 }
 
@@ -93,4 +95,8 @@
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.modal__add-button:hover {
+  background-color: rgba(0, 0, 0, 0.6);
 }
