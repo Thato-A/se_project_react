@@ -1,0 +1,11 @@
+@font-face {
+  src: url("../../assets/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk";
+}
+
+.footer__content {
+  padding: 171px 42px 24px 40px;
+  display: flex;
+  justify-content: space-between;
+  font-family: CabinetGrotesk, sans-serif;
+}

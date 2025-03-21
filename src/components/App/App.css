@@ -1,0 +1,17 @@
+@font-face {
+  src: url("../../assets/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk";
+}
+
+.page {
+  background-color: #f3f3f3;
+}
+
+.page__content {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 40px;
+  font-family: CabinetGrotesk, sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+}

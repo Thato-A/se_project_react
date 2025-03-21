@@ -1,0 +1,96 @@
+@font-face {
+  src: url("../../assets/fonts/CabinetGrotesk-Regular.woff") format("woff");
+  font-family: "CabinetGrotesk";
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.modal_open {
+  visibility: visible;
+}
+
+.modal__content {
+  background-color: #fff;
+  position: relative;
+  border-radius: 20px;
+  padding: 28px 28px 36px;
+  max-width: 496px;
+  height: 436px;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: CabinetGortesk, sans-serif;
+}
+
+.modal__title {
+  margin: 0 0 24px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  background-image: url("../../assets/close-button.svg");
+  background-repeat: no-repeat;
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__input {
+  display: block;
+  margin: 8px 0 24px;
+  border: none;
+  border-bottom: solid 1px;
+  width: 100%;
+}
+
+.modal__radio-buttons {
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+}
+
+.modal__legend {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.modal__label_type_radio {
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+.modal__label_type_radio:checked + .modal__radio-input {
+  opacity: 1;
+}
+
+.modal__add-button {
+  width: 124px;
+  height: 36px;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
