@@ -1,0 +1,28 @@
+.clothes-section {
+  max-width: 1015px;
+  max-height: 750px;
+  overflow: hidden;
+}
+
+.clothes-section__items {
+  display: flex;
+  margin: 20px 0 16px;
+  gap: 20px;
+}
+
+.clothes-section__title {
+  margin: 0;
+}
+
+.clothes-section__btn {
+  border: none;
+  color: rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.clothes-section__list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  gap: 20px;
+}

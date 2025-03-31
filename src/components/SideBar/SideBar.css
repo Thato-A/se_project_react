@@ -1,0 +1,13 @@
+.sidebar {
+  display: flex;
+}
+
+.sidebar__image {
+  width: 56px;
+  height: 56px;
+}
+
+.sidebar__username {
+  font-size: 20px;
+  padding-left: 16px;
+}
