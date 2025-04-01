@@ -10,7 +10,7 @@ import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
 import ItemModal from "../ItemModal/ItemModal.jsx";
 import Footer from "../Footer/Footer.jsx";
-import CurrentTemperatureUnitContext from "../contexts/CurrentTemperatureUnitContext.jsx";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import Profile from "../Profile/Profile.jsx";
 import DeleteModal from "../DeleteModal/DeleteModal.jsx";
