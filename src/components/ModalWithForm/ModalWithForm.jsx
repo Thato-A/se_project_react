@@ -7,10 +7,15 @@ function ModalWithForm({
   isOpen,
   onClose,
   onSubmit,
+  onModalOverlayClick,
 }) {
   const buttonText = isLoading ? "Saving..." : "add-garment";
+
   return (
-    <div className={`modal ${isOpen && "modal_open"}`}>
+    <div
+      onClick={onModalOverlayClick}
+      className={`modal ${isOpen && "modal_open"}`}
+    >
       <div className="modal__content">
         <h2 className="modal__title">{title}</h2>
         <button onClick={onClose} type="button" className="modal__close" />

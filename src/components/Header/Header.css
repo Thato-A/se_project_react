@@ -4,9 +4,26 @@
   padding: 32px 0 28px;
 }
 
+.header__container {
+  display: flex;
+}
+
 .header__nav {
   display: flex;
   margin-left: auto;
+}
+
+.header__nav-container {
+  display: flex;
+  margin-left: auto;
+  list-style-type: none;
+  align-items: center;
+}
+
+.header__sign-btn {
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .header__logo {
@@ -16,7 +33,7 @@
 }
 
 .header__date-and-location {
-  margin: 0;
+  margin: 10px 0 0 0;
   width: 160px;
   height: 24px;
 }
@@ -33,12 +50,18 @@
 .header__link {
   text-decoration: none;
   color: #000;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 22px;
 }
 
-.header__user-container {
+.header__user-btn {
   display: flex;
   align-items: center;
   gap: 12px;
+  border: none;
+  border-radius: 50%;
 }
 
 .header__username {

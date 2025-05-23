@@ -1,5 +1,10 @@
 .sidebar {
   display: flex;
+  flex-direction: column;
+}
+
+.sidebar__user-info {
+  display: flex;
 }
 
 .sidebar__image {
