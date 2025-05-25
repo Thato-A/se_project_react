@@ -95,7 +95,7 @@ label:has(input:checked) {
 .modal__add-button {
   width: 124px;
   height: 36px;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: black;
   color: #fff;
   border: none;
   padding: 8px 16px;
@@ -105,6 +105,10 @@ label:has(input:checked) {
 
 .modal__add-button:hover {
   background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__add-button_disabled {
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .modal__image {

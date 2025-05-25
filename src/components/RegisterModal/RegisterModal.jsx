@@ -35,11 +35,9 @@ function RegisterModal({ isOpen, onClose, onSubmit, onClickLogin, isLoading }) {
     onClose();
   };
 
-  const buttonText = isLoading ? "Registering..." : "Sign in";
   return (
     <ModalWithForm
       title="Sign Up"
-      buttonText={buttonText}
       isOpen={isOpen}
       onClose={handleClose}
       onSubmit={handleSubmit}
@@ -116,6 +114,9 @@ function RegisterModal({ isOpen, onClose, onSubmit, onClickLogin, isLoading }) {
         />
         {errors.avatar && <span className="modal__error">{errors.avatar}</span>}
       </label>
+      <button type="submit" className="modal__add-button">
+        Register
+      </button>
     </ModalWithForm>
   );
 }

@@ -18,12 +18,9 @@ function LoginModal({ isOpen, onClose, onSubmit, onClickRegister, isLoading }) {
     }
   };
 
-  const buttonText = isLoading ? "Logging in..." : "Log in";
-
   return (
     <ModalWithForm
       title="Log In"
-      buttonText={buttonText}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
@@ -66,6 +63,9 @@ function LoginModal({ isOpen, onClose, onSubmit, onClickRegister, isLoading }) {
           <span className="modal__error">{errors.password}</span>
         )}
       </label>
+      <button type="submit" className="modal__add-button">
+        Log in
+      </button>
     </ModalWithForm>
   );
 }

@@ -11,7 +11,7 @@ function AddItemModal({
 }) {
   const { values, handleChange, setErrors, errors, isValid, resetForm } =
     useFormAndValidation({
-      name: "",
+      "item-name": "",
       imageUrl: "",
       weather: "",
     });
@@ -30,6 +30,7 @@ function AddItemModal({
     evt.preventDefault();
     if (isValid) {
       onAddItemModalSubmit(values);
+      console.log(values);
       resetForm();
     }
   };
@@ -44,18 +45,18 @@ function AddItemModal({
       onModalOverlayClick={onModalOverlayClick}
     >
       <label htmlFor="item-name" className="modal__label">
-        Name{" "}
+        Item name{" "}
         <input
           type="text"
           className="modal__input"
           id="item-name"
           name="item-name"
-          placeholder="Name"
+          placeholder="Item name"
           required
           minLength="1"
           maxLength="30"
           onChange={handleChange}
-          value={values.name || ""}
+          value={values["item-name"]}
         />
         {errors.name && <span className="modal__error">{errors.name}</span>}
       </label>
@@ -120,6 +121,9 @@ function AddItemModal({
           <span className="radio-group__error">{errors.weather}</span>
         )}
       </fieldset>
+      <button type="submit" className="modal__add-button">
+        Add garment
+      </button>
     </ModalWithForm>
   );
 }

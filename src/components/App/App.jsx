@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi.js";
 import { coordinates, APIkey } from "../../utils/constants.js";
@@ -71,8 +71,8 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather }) => {
-    return addItem({ name, imageUrl, weather })
+  const handleAddItemModalSubmit = ({ itemName, imageUrl, weather }) => {
+    return addItem({ "item-name": itemName, imageUrl, weather })
       .then((newItem) => {
         setIsLoading(true);
         setClothingItems([newItem, ...clothingItems]);
@@ -223,9 +223,13 @@ function App() {
           .catch((err) => console.log(err));
   };
 
+  const navigate = useNavigate();
+
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
-    setCurrentUser(null);
+    setCurrentUser("");
+    setIsLoggedIn(false);
+    navigate("/");
   };
 
   const handleEditProfile = () => {
@@ -331,7 +335,7 @@ function App() {
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
                     currentUser={currentUser}
-                    isLoggedIn={currentUser !== null}
+                    isLoggedIn={isLoggedIn}
                   />
                 }
               ></Route>

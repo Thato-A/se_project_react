@@ -18,7 +18,7 @@ function EditProfileModal({ isOpen, onSubmit, onClose }) {
         avatar: currentUser?.avatar || "",
       });
     }
-  }, [isOpen, currentUser]); // Update the values when currentUser changes or modal opens]
+  }, [isOpen, currentUser]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -58,12 +58,18 @@ function EditProfileModal({ isOpen, onSubmit, onClose }) {
           type="url"
           name="avatar"
           placeholder="Avatar URL"
-          value={values.avatar || ""}
+          value={values.avatar}
           onChange={handleChange}
           required
         />
         {errors.avatar && <p className="modal__error">{errors.avatar}</p>}
       </label>
+      <button
+        type="submit"
+        className="modal__add-button modal__add-button_disabled"
+      >
+        Save changes
+      </button>
     </ModalWithForm>
   );
 }

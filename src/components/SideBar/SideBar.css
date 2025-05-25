@@ -1,18 +1,28 @@
 .sidebar {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
 }
 
 .sidebar__user-info {
   display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
 }
 
 .sidebar__image {
   width: 56px;
   height: 56px;
+  border-radius: 50%;
 }
 
 .sidebar__username {
   font-size: 20px;
   padding-left: 16px;
+}
+
+.sidebar__button {
+  border: none;
+  cursor: pointer;
 }

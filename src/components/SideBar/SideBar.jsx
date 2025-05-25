@@ -23,6 +23,7 @@ function SideBar({ handleEditProfile, handleSignOut }) {
       >
         Change profile data
       </button>
+
       <button type="button" onClick={handleSignOut} className="sidebar__button">
         Log Out
       </button>
