@@ -4,7 +4,6 @@ import "./Header.css";
 import Logo from "../../assets/header-logo.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import Profile from "../Profile/Profile";
 
 function Header({
   weatherData,

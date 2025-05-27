@@ -31,7 +31,6 @@ function ItemModal({
                 Delete Item
               </button>
             )}
-            ;
           </div>
           <p className="modal__weather">Weather: {card.weather}</p>
         </div>

@@ -1,7 +1,12 @@
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 
-function ClothesSection({ onCardClick, clothingItems, onAddNewItem }) {
+function ClothesSection({
+  onCardClick,
+  clothingItems,
+  onAddNewItem,
+  onCardLike,
+}) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__items">
@@ -22,6 +27,7 @@ function ClothesSection({ onCardClick, clothingItems, onAddNewItem }) {
               key={filteredCard._id || `item-${index}`}
               item={filteredCard}
               onCardClick={onCardClick}
+              onCardLike={onCardLike}
             />
           );
         })}

@@ -2,26 +2,27 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import "./ItemCard.css";
 
-function ItemCard({ item, onCardClick }) {
+function ItemCard({ item, onCardClick, onCardLike }) {
   const { currentUser } = useContext(CurrentUserContext);
   const token = localStorage.getItem("jwt");
 
-  const handleLike = () => {
-    onCardLike({ _id: item._id, isLiked });
-  };
-
-  const handleCardClick = () => {
+  const handleImageClick = () => {
     onCardClick(item);
   };
 
+  const handleLike = () => {
+    onCardLike(item, isLiked);
+  };
+
   const isLiked =
-    currentUser && item.likes.some((id) => id === currentUser._id);
+    Array.isArray(item.likes) &&
+    item.likes.some((id) => id.toString() === currentUser?._id);
 
   return (
     <li className="card">
       <h2 className="card__title">{item.name}</h2>
       <img
-        onClick={handleCardClick}
+        onClick={handleImageClick}
         className="card__image"
         src={item.imageUrl}
         alt={item.name}

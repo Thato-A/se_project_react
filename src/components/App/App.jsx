@@ -14,7 +14,6 @@ import {
   checkToken,
   updateProfile,
 } from "../../utils/api.js";
-import { checkAuth } from "../../utils/auth.js";
 
 import Header from "../Header/Header.jsx";
 import Main from "../Main/Main.jsx";
@@ -30,6 +29,7 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import "./App.css";
+import ItemCard from "../ItemCard/ItemCard.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -71,8 +71,8 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  const handleAddItemModalSubmit = ({ itemName, imageUrl, weather }) => {
-    return addItem({ "item-name": itemName, imageUrl, weather })
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather, token }) => {
+    return addItem({ name, imageUrl, weather, token })
       .then((newItem) => {
         setIsLoading(true);
         setClothingItems([newItem, ...clothingItems]);
@@ -80,9 +80,6 @@ function App() {
       })
       .catch((error) => {
         console.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 
@@ -92,6 +89,7 @@ function App() {
 
   const handleDeleteCard = () => {
     const token = localStorage.getItem("jwt");
+
     deleteItem(selectedCard._id, token)
       .then(() => {
         setClothingItems((prevItems) =>
@@ -111,6 +109,7 @@ function App() {
         .then((res) => {
           if (res) {
             setCurrentUser(res);
+            setIsLoggedIn(true);
           }
         })
         .catch((err) => {
@@ -167,7 +166,6 @@ function App() {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           checkToken(res.token).then((userData) => {
-            console.log(userData);
             if (userData) {
               setCurrentUser(userData);
               setIsLoggedIn(true);
@@ -202,25 +200,32 @@ function App() {
       });
   };
 
-  const handleCardLike = ({ id, isLiked }) => {
+  const handleCardLike = (item, isLiked) => {
+    const method = isLiked ? removeCardLike : addCardLike;
     const token = localStorage.getItem("jwt");
-    !isLiked
-      ? api
-          .addCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err))
-      : api
-          .removeCardLike(id, token)
-          .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === id ? updatedCard : item))
-            );
-          })
-          .catch((err) => console.log(err));
+    method(item._id, token)
+      .then((newItem) => {
+        setClothingItems((prevItems) =>
+          prevItems.map((prevItem) =>
+            prevItem._id === item._id ? newItem : prevItem
+          )
+        );
+      })
+      .catch(console.error);
+  };
+
+  console.log(clothingItems);
+
+  const handleRemoveCardLike = (item) => {
+    removeCardLike(item._id)
+      .then((newItem) => {
+        setClothingItems((prevItems) =>
+          prevItems.map((prevItem) =>
+            prevItem._id === item._id ? newItem : prevItem
+          )
+        );
+      })
+      .catch(console.error);
   };
 
   const navigate = useNavigate();
@@ -282,24 +287,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getItems();
-    const token = localStorage.getItem("jwt");
-    if (token) {
-      checkAuth(token)
-        .then((userData) => {
-          if (userData) {
-            setCurrentUser(userData);
-            setIsLoggedIn(true);
-          } else {
-            localStorage.removeItem("jwt");
-            setIsLoggedIn(false);
-          }
-        })
-        .catch(() => {
-          localStorage.removeItem("jwt");
-          setIsLoggedIn(false);
-        });
-    }
+    getItems()
+      .then((items) => {
+        setClothingItems(items.reverse());
+      })
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
@@ -351,9 +343,11 @@ function App() {
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       onAddNewItem={handleAddClick}
-                      onCardLike={handleCardClick}
+                      onCardLike={handleCardLike}
                       handleEditProfile={handleEditProfile}
                       handleSignOut={handleSignOut}
+                      onCardRemoveLike={handleRemoveCardLike}
+                      onCardDelete={handleDeleteCard}
                     />
                   </ProtectedRoute>
                 }
@@ -371,11 +365,13 @@ function App() {
             activeModal={activeModal}
             card={selectedCard}
             onClose={closeActiveModal}
-            isOpen={activeModal === "add-garment"}
+            isOpen={activeModal === "preview"}
             onDeleteCard={handleDeleteCard}
             onDeleteButtonClick={handleDeleteButtonClick}
             currentUser={currentUser}
+            onCardLike={handleCardLike}
           />
+
           <DeleteModal
             isOpen={activeModal === "delete-modal"}
             onClose={closeActiveModal}

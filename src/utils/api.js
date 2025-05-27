@@ -23,17 +23,21 @@ export const handleServerResponse = (res) => {
 };
 
 function getItems() {
-  return request(`${baseUrl}/items`);
+  return request(`${baseUrl}/items`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
 
-function addItem({ itemName, imageUrl, weather, token }) {
+function addItem({ name, imageUrl, weather, token }) {
   return request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify({ "item-name": itemName, imageUrl, weather }),
+    body: JSON.stringify({ name, imageUrl, weather }),
   });
 }
 

@@ -9,6 +9,9 @@ function Profile({
   currentUser,
   handleEditProfile,
   handleSignOut,
+  onCardDelete,
+  onCardLike,
+  onCardRemoveLike,
 }) {
   return (
     <div className="profile">
@@ -24,6 +27,9 @@ function Profile({
           onCardClick={onCardClick}
           clothingItems={clothingItems}
           onAddNewItem={onAddNewItem}
+          onCardDelete={onCardDelete}
+          onCardLike={onCardLike}
+          onCardRemoveLike={onCardRemoveLike}
         />
       </section>
     </div>

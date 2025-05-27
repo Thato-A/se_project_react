@@ -11,7 +11,7 @@ function AddItemModal({
 }) {
   const { values, handleChange, setErrors, errors, isValid, resetForm } =
     useFormAndValidation({
-      "item-name": "",
+      name: "",
       imageUrl: "",
       weather: "",
     });
@@ -29,8 +29,7 @@ function AddItemModal({
   const handleSubmit = (evt) => {
     evt.preventDefault();
     if (isValid) {
-      onAddItemModalSubmit(values);
-      console.log(values);
+      onAddItemModalSubmit({ ...values, token: localStorage.getItem("jwt") });
       resetForm();
     }
   };
@@ -50,13 +49,13 @@ function AddItemModal({
           type="text"
           className="modal__input"
           id="item-name"
-          name="item-name"
+          name="name"
           placeholder="Item name"
           required
           minLength="1"
           maxLength="30"
           onChange={handleChange}
-          value={values["item-name"]}
+          value={values[name]}
         />
         {errors.name && <span className="modal__error">{errors.name}</span>}
       </label>

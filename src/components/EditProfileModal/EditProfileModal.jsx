@@ -64,10 +64,7 @@ function EditProfileModal({ isOpen, onSubmit, onClose }) {
         />
         {errors.avatar && <p className="modal__error">{errors.avatar}</p>}
       </label>
-      <button
-        type="submit"
-        className="modal__add-button modal__add-button_disabled"
-      >
+      <button type="submit" className="modal__add-button">
         Save changes
       </button>
     </ModalWithForm>
