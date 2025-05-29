@@ -1,5 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../utils/useFormAndValidation";
+import "./LoginModal.css";
 
 function LoginModal({ isOpen, onClose, onSubmit, onRegisterClick, isLoading }) {
   const { values, errors, handleChange, isValid, resetForm } =
