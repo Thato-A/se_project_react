@@ -3,9 +3,9 @@ import { useFormAndValidation } from "../../utils/useFormAndValidation";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function EditProfileModal({ isOpen, onSubmit, onClose }) {
+function EditProfileModal({ isOpen, onSubmit, onClose, isLoading }) {
   const { currentUser } = useContext(CurrentUserContext);
-  const { values, handleChange, resetForm, errors, isValid, setValues } =
+  const { values, handleChange, errors, isValid, setValues } =
     useFormAndValidation({
       name: currentUser?.name || "",
       avatar: currentUser?.avatar || "",
@@ -30,7 +30,6 @@ function EditProfileModal({ isOpen, onSubmit, onClose }) {
   return (
     <ModalWithForm
       title="Change profile data"
-      buttonText="Save changes"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
@@ -64,8 +63,14 @@ function EditProfileModal({ isOpen, onSubmit, onClose }) {
         />
         {errors.avatar && <p className="modal__error">{errors.avatar}</p>}
       </label>
-      <button type="submit" className="modal__add-button">
-        Save changes
+      <button
+        type="submit"
+        className={`modal__add-button ${
+          !isValid ? "modal__add-button_disabled" : ""
+        }`}
+        disabled={!isValid}
+      >
+        {isLoading ? "Saving..." : "Save Changes"}
       </button>
     </ModalWithForm>
   );

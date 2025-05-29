@@ -1,7 +1,7 @@
 import "./DeleteModal.css";
 import CloseBtn from "../../assets/close-button.svg";
 
-function DeleteModal({ isOpen, onClose, onConfirm }) {
+function DeleteModal({ isOpen, onClose, onConfirm, isLoading }) {
   if (!isOpen) {
     return null;
   }
@@ -20,7 +20,7 @@ function DeleteModal({ isOpen, onClose, onConfirm }) {
             className="modal-delete__button modal-delete__button-confirm"
             onClick={onConfirm}
           >
-            Yes, delete item
+            {isLoading ? "Deleting..." : "Yes, delete this item"}
           </button>
 
           <button

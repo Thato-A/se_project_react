@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalWithForm.jsx";
 import { useFormAndValidation } from "../../utils/useFormAndValidation.js";
@@ -30,9 +31,12 @@ function AddItemModal({
     evt.preventDefault();
     if (isValid) {
       onAddItemModalSubmit({ ...values, token: localStorage.getItem("jwt") });
-      resetForm();
     }
   };
+
+  useEffect(() => {
+    resetForm();
+  }, [isOpen]);
 
   return (
     <ModalWithForm
@@ -120,8 +124,14 @@ function AddItemModal({
           <span className="radio-group__error">{errors.weather}</span>
         )}
       </fieldset>
-      <button type="submit" className="modal__add-button">
-        Add garment
+      <button
+        type="submit"
+        className={`modal__add-button ${
+          !isValid ? "modal__add-button_disabled" : ""
+        }`}
+        disabled={!isValid}
+      >
+        {isLoading ? "Saving..." : "Add garment"}
       </button>
     </ModalWithForm>
   );

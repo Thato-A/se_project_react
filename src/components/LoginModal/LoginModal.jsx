@@ -1,7 +1,7 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../utils/useFormAndValidation";
 
-function LoginModal({ isOpen, onClose, onSubmit, onClickRegister, isLoading }) {
+function LoginModal({ isOpen, onClose, onSubmit, onRegisterClick, isLoading }) {
   const { values, errors, handleChange, isValid, resetForm } =
     useFormAndValidation({ email: "", password: "" });
 
@@ -24,8 +24,6 @@ function LoginModal({ isOpen, onClose, onSubmit, onClickRegister, isLoading }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      secondaryButtonText={"or Sign up"}
-      secondaryButtonAction={onClickRegister}
     >
       <label className="modal__label">
         Email*
@@ -63,9 +61,24 @@ function LoginModal({ isOpen, onClose, onSubmit, onClickRegister, isLoading }) {
           <span className="modal__error">{errors.password}</span>
         )}
       </label>
-      <button type="submit" className="modal__add-button">
-        Log in
-      </button>
+      <div className="modal__button-container">
+        <button
+          type="submit"
+          className={`modal__add-button ${
+            !isValid ? "modal__add-button_disabled" : ""
+          }`}
+          disabled={!isValid}
+        >
+          {isLoading ? "Logging..." : "Log In"}
+        </button>
+        <button
+          type="button"
+          onClick={onRegisterClick}
+          className="modal__switch-button"
+        >
+          or Sign Up
+        </button>
+      </div>
     </ModalWithForm>
   );
 }

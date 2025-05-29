@@ -29,7 +29,6 @@ import LoginModal from "../LoginModal/LoginModal.jsx";
 import RegisterModal from "../RegisterModal/RegisterModal.jsx";
 import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
 import "./App.css";
-import ItemCard from "../ItemCard/ItemCard.jsx";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -57,6 +56,22 @@ function App() {
     setActiveModal("add-garment");
   };
 
+  const handleEditProfile = () => {
+    setActiveModal("edit-profile");
+  };
+
+  const openLoginModal = () => {
+    setActiveModal("login");
+  };
+
+  const openRegistrationModal = () => {
+    setActiveModal("register");
+  };
+
+  const handleDeleteButtonClick = () => {
+    setActiveModal("delete-modal");
+  };
+
   const closeActiveModal = () => {
     setActiveModal("");
   };
@@ -71,35 +86,32 @@ function App() {
     setCurrentTemperatureUnit(currentTemperatureUnit === "F" ? "C" : "F");
   };
 
-  const handleAddItemModalSubmit = ({ name, imageUrl, weather, token }) => {
-    return addItem({ name, imageUrl, weather, token })
-      .then((newItem) => {
-        setIsLoading(true);
-        setClothingItems([newItem, ...clothingItems]);
-        closeActiveModal();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  function handleSubmit(request) {
+    setIsLoading(true);
+    request()
+      .then(closeActiveModal)
+      .catch(console.error)
+      .finally(() => setIsLoading(false));
+  }
 
-  const handleDeleteButtonClick = () => {
-    setActiveModal("delete-modal");
+  const handleAddItemModalSubmit = ({ name, imageUrl, weather, token }) => {
+    const makeRequest = () => {
+      return addItem({ name, imageUrl, weather, token }).then((newItem) => {
+        setClothingItems([newItem, ...clothingItems]);
+      });
+    };
+    handleSubmit(makeRequest);
   };
 
   const handleDeleteCard = () => {
     const token = localStorage.getItem("jwt");
-
-    deleteItem(selectedCard._id, token)
-      .then(() => {
+    const makeRequest = () =>
+      deleteItem(selectedCard._id, token).then(() => {
         setClothingItems((prevItems) =>
           prevItems.filter((item) => item._id !== selectedCard._id)
         );
-        closeActiveModal();
-      })
-      .catch((error) => {
-        console.error(error);
       });
+    handleSubmit(makeRequest, closeActiveModal);
   };
 
   const getUserData = () => {
@@ -237,18 +249,6 @@ function App() {
     navigate("/");
   };
 
-  const handleEditProfile = () => {
-    setActiveModal("edit-profile");
-  };
-
-  const openLoginModal = () => {
-    setActiveModal("login");
-  };
-
-  const openRegistrationModal = () => {
-    setActiveModal("register");
-  };
-
   useEffect(() => {
     if (!activeModal) return;
     const handleEscClose = (evt) => {
@@ -326,7 +326,6 @@ function App() {
                     onAddNewItem={handleAddClick}
                     clothingItems={clothingItems}
                     onCardLike={handleCardLike}
-                    currentUser={currentUser}
                     isLoggedIn={isLoggedIn}
                   />
                 }
@@ -335,10 +334,7 @@ function App() {
               <Route
                 path="/profile"
                 element={
-                  <ProtectedRoute
-                    isLoggedIn={isLoggedIn}
-                    currentUser={currentUser}
-                  >
+                  <ProtectedRoute isLoggedIn={isLoggedIn}>
                     <Profile
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
@@ -368,7 +364,6 @@ function App() {
             isOpen={activeModal === "preview"}
             onDeleteCard={handleDeleteCard}
             onDeleteButtonClick={handleDeleteButtonClick}
-            currentUser={currentUser}
             onCardLike={handleCardLike}
           />
 
@@ -381,23 +376,25 @@ function App() {
           <RegisterModal
             isOpen={activeModal === "register"}
             onSubmit={handleRegistration}
-            onClickLogin={openRegistrationModal}
+            onRegisterClick={openRegistrationModal}
             onClose={closeActiveModal}
             isLoading={isLoading}
+            onClickLogin={openLoginModal}
           />
           <LoginModal
             isOpen={activeModal === "login"}
             onSubmit={handleLogin}
-            onClickRegister={openLoginModal}
+            onClickLogin={openLoginModal}
             onClose={closeActiveModal}
             isLoading={isLoading}
+            onRegisterClick={openRegistrationModal}
           />
           <EditProfileModal
             isOpen={activeModal === "edit-profile"}
             onClose={closeActiveModal}
             onSubmit={handleUpdateProfile}
             errorMessage={errorMessage}
-            currentUser={currentUser}
+            isLoading={isLoading}
           />
           {errorMessage && (
             <div className="error-message">
