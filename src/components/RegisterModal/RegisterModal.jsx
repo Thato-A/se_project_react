@@ -2,13 +2,20 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { useFormAndValidation } from "../../utils/useFormAndValidation";
 
 function RegisterModal({ isOpen, onClose, onSubmit, onClickLogin, isLoading }) {
-  const { values, errors, handleChange, setErrors, setIsValid, isValid } =
-    useFormAndValidation({
-      email: "",
-      password: "",
-      name: "",
-      avatar: "",
-    });
+  const {
+    values,
+    errors,
+    handleChange,
+    setErrors,
+    setIsValid,
+    isValid,
+    resetForm,
+  } = useFormAndValidation({
+    email: "",
+    password: "",
+    name: "",
+    avatar: "",
+  });
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -108,7 +115,6 @@ function RegisterModal({ isOpen, onClose, onSubmit, onClickLogin, isLoading }) {
           value={values.avatar}
           onChange={handleChange}
           placeholder="Avatar URL"
-          required
         />
         {errors.avatar && <span className="modal__error">{errors.avatar}</span>}
       </label>

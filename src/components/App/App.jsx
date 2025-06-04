@@ -133,7 +133,7 @@ function App() {
 
   const handleRegistration = ({ email, password, name, avatar }) => {
     setIsLoading(true);
-    register({ email, password, name, avatar })
+    return register({ email, password, name, avatar })
       .then((res) => {
         if (!res) {
           throw new Error("Sorry registration unsuccessful");
@@ -149,6 +149,7 @@ function App() {
       .then((userData) => {
         if (userData) {
           setCurrentUser(userData);
+          setIsLoggedIn(true);
           closeActiveModal();
           setErrorMessage("");
         }
@@ -277,6 +278,7 @@ function App() {
     };
   }, [activeModal]);
 
+  // fetch to get the weather info on page load
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
